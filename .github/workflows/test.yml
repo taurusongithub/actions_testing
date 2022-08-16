@@ -1,0 +1,22 @@
+name: test
+
+on:
+  - push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: conda-incubator/setup-miniconda@v2.1.1
+        with:
+          environment-file: ./environment.yml
+          auto-activate-base: false
+          activate-environment: testing
+      - name: Testing
+        run: |
+          conda list python
+          python hello_world.py
